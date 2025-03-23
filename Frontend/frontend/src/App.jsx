@@ -1,23 +1,19 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import GitHubLogin from "./components/GitHubLogin";
-import Logout from "./components/Logout";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Register from './components/Register';
+import Login from './components/Login';
+import Profile from './components/Profile';
 
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/github-login" element={<GitHubLogin />} />
-        <Route path="/logout" element={<Logout />} />
-      </Routes>
-    </Router>
-  );
-};
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
+            </Routes>
+        </Router>
+    );
+}
 
 export default App;

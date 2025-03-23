@@ -18,13 +18,13 @@ def register_student(request):
         password = data.get('password')
         email = data.get('email')
         student_id = data.get('student_id')
-        
+
         if Student.objects.filter(username=username).exists():
             return JsonResponse({
                 'status': 'error',
                 'message': 'Username already exists'
             }, status=400)
-            
+
         try:
             student = Student.objects.create_user(
                 username=username,
@@ -46,11 +46,12 @@ def register_student(request):
                 'status': 'error',
                 'message': str(e)
             }, status=500)
-    
+
     return JsonResponse({
         'status': 'error',
         'message': 'Only POST method is allowed'
     }, status=405)
+
 
 @csrf_exempt
 def login_student(request):

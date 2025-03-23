@@ -2,35 +2,43 @@ import React, { useState, useEffect } from "react";
 import { getStudentProfile } from "../context/api";
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null);
+    const [profile, setProfile] = useState(null);
+    const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await getStudentProfile();
-        setProfile(response.data.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await getStudentProfile();
+                setProfile(response.data.data);
+            } catch (error) {
+                setMessage('Please log in first.');
+            }
+        };
+
+        fetchProfile();
+    }, []);
+
+    const handleLogout = async () => {
+        await logoutStudent();
+        setMessage('Logged out successfully');
+        setProfile(null);
     };
 
-    fetchProfile();
-  }, []);
-
-  return (
-    <div>
-      <h2>Student Profile</h2>
-      {profile ? (
+    return (
         <div>
-          <p>Username: {profile.username}</p>
-          <p>Email: {profile.email}</p>
-          <p>Student ID: {profile.student_id}</p>
+            <h2>Profile</h2>
+            {profile ? (
+                <div>
+                    <p>Username: {profile.username}</p>
+                    <p>Email: {profile.email}</p>
+                    <p>Student ID: {profile.student_id}</p>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
+            ) : (
+                <p>{message}</p>
+            )}
         </div>
-      ) : (
-        <p>Loading profile...</p>
-      )}
-    </div>
-  );
+    );
 };
 
 export default Profile;
